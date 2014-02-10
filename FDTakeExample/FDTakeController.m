@@ -26,6 +26,7 @@ static NSString * const kStringsTableName = @"FDTake";
 @property (strong, nonatomic) NSMutableArray *buttonTitles;
 @property (strong, nonatomic) UIActionSheet *actionSheet;
 @property (strong, nonatomic) UIPopoverController *popover;
+@property BOOL choosingFromLibrary;
 
 // Returns either optional view control for presenting or main window
 - (UIViewController*)presentingViewController;
@@ -156,7 +157,7 @@ static NSString * const kStringsTableName = @"FDTake";
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    BOOL chooseFromLibrary = NO;
+    self.choosingFromLibrary = NO;
     UIViewController *aViewController = [self _topViewController:[[[UIApplication sharedApplication] keyWindow] rootViewController] ];
     if (buttonIndex == self.actionSheet.cancelButtonIndex) {
         if ([self.delegate respondsToSelector:@selector(takeController:didCancelAfterAttempting:)])
@@ -184,7 +185,7 @@ static NSString * const kStringsTableName = @"FDTake";
                     self.imagePicker.allowsEditing = self.allowsEditingVideo;
                     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeMovie];
                 } else if (buttonIndex == 2) {
-                    chooseFromLibrary = YES;
+                    self.choosingFromLibrary = YES;
                     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
                 }
             }
@@ -192,7 +193,7 @@ static NSString * const kStringsTableName = @"FDTake";
         
         // On iPad use pop-overs.
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            if (chooseFromLibrary == NO) {
+            if (self.choosingFromLibrary == NO) {
                 [[self presentingViewController] presentViewController:self.imagePicker animated:YES completion:nil];
             } else {
                 [self.popover presentPopoverFromRect:self.popOverPresentRect
@@ -246,7 +247,9 @@ static NSString * const kStringsTableName = @"FDTake";
             [self.delegate takeController:self gotPhoto:imageToSave withInfo:info];
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            [self.popover dismissPopoverAnimated:YES];
+            if (self.choosingFromLibrary == YES) {
+                [self.popover dismissPopoverAnimated:YES];
+            }
     }
     // Handle a movie capture
     else if (CFStringCompare ((CFStringRef) mediaType, kUTTypeMovie, 0)
