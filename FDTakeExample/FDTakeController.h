@@ -19,7 +19,7 @@
 - (void)takeController:(FDTakeController *)controller gotVideo:(NSURL *)video withInfo:(NSDictionary *)info;
 @end
 
-@interface FDTakeController : NSObject <UIImagePickerControllerDelegate>
+@interface FDTakeController : NSObject <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 - (void)takePhotoOrChooseFromLibrary;
 - (void)takeVideoOrChooseFromLibrary;

@@ -21,7 +21,7 @@ static NSString * const kCancelKey = @"cancel";
 static NSString * const kNoSourcesKey = @"noSources";
 static NSString * const kStringsTableName = @"FDTake";
 
-@interface FDTakeController() <UIActionSheetDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface FDTakeController() <UIActionSheetDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate>
 @property (strong, nonatomic) NSMutableArray *sources;
 @property (strong, nonatomic) NSMutableArray *buttonTitles;
 @property (strong, nonatomic) UIActionSheet *actionSheet;
@@ -156,6 +156,7 @@ static NSString * const kStringsTableName = @"FDTake";
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    BOOL chooseFromLibrary = NO;
     UIViewController *aViewController = [self _topViewController:[[[UIApplication sharedApplication] keyWindow] rootViewController] ];
     if (buttonIndex == self.actionSheet.cancelButtonIndex) {
         if ([self.delegate respondsToSelector:@selector(takeController:didCancelAfterAttempting:)])
@@ -183,6 +184,7 @@ static NSString * const kStringsTableName = @"FDTake";
                     self.imagePicker.allowsEditing = self.allowsEditingVideo;
                     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeMovie];
                 } else if (buttonIndex == 2) {
+                    chooseFromLibrary = YES;
                     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
                 }
             }
@@ -190,10 +192,14 @@ static NSString * const kStringsTableName = @"FDTake";
         
         // On iPad use pop-overs.
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            [self.popover presentPopoverFromRect:self.popOverPresentRect
-                                          inView:aViewController.view
-                        permittedArrowDirections:UIPopoverArrowDirectionAny
-                                        animated:YES];
+            if (chooseFromLibrary == NO) {
+                [[self presentingViewController] presentViewController:self.imagePicker animated:YES completion:nil];
+            } else {
+                [self.popover presentPopoverFromRect:self.popOverPresentRect
+                                              inView:aViewController.view
+                            permittedArrowDirections:UIPopoverArrowDirectionAny
+                                            animated:YES];
+            }
         }
         else {
             // On iPhone use full screen presentation.

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D2854A8D-2BC0-46C5-9771-0C2877B4CBB4</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FDTakeExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E2140C78-0507-4225-8453-B2A3270F885D</key>
+		<string>ssh://github.com/fulldecent/FDTake.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FDTakeExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E2140C78-0507-4225-8453-B2A3270F885D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/fulldecent/FDTake.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E2140C78-0507-4225-8453-B2A3270F885D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E2140C78-0507-4225-8453-B2A3270F885D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FDTake</string>
+		</dict>
+	</array>
+</dict>
+</plist>
